@@ -3,12 +3,14 @@ https://safe731.github.io
 
 https://github.com/safe731/safelink
 
-[Micro Job] (https://safe731.github.io/micro-job/index.html)
+Micro Job
+sttps://safe731.github.io/micro-job/index.html
 
 
 
 Subway Surfers Game
 https://github.com/safe731/SubwaySurfers
+
 Monkey Mart Game
 https://github.com/safe731/MonkeyMart
 
