@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scanning Link</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+padding:30px;
+}
+
+.box{
+max-width:500px;
+margin:auto;
+}
+
+.progress{
+width:100%;
+height:20px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+margin:20px 0;
+}
+
+.bar{
+height:100%;
+width:0%;
+background:#28a745;
+transition:.5s;
+}
+
+button{
+padding:12px 20px;
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Scanning Link...</h2>
+
+<div class="progress">
+<div id="bar" class="bar"></div>
+</div>
+
+<h1 id="count">Loading...</h1>
+
+<button id="continueBtn">
+Continue
+</button>
+
+</div>
+
+<script>
+
+const params =
+new URLSearchParams(location.search);
+
+const id = params.get("id");
+
+async function start(){
+
+const res = await fetch(
+"https://s.safe731-shortlink-api.workers.dev/link/"+id
+);
+
+const data = await res.json();
+
+let seconds =
+parseInt(data.delay);
+
+const total = seconds;
+
+const count =
+document.getElementById("count");
+
+const bar =
+document.getElementById("bar");
+
+const btn =
+document.getElementById("continueBtn");
+
+count.innerText = seconds;
+
+const timer = setInterval(()=>{
+
+seconds--;
+
+count.innerText = seconds;
+
+let percent =
+((total-seconds)/total)*100;
+
+bar.style.width =
+percent+"%";
+
+if(seconds<=0){
+
+clearInterval(timer);
+
+count.innerText =
+"Ready";
+
+btn.style.display =
+"inline-block";
+
+btn.onclick = ()=>{
+
+location.href =
+"/download/?id="+id;
+
+};
+
+}
+
+},1000);
+
+}
+
+start();
+
+</script>
+
+</body>
+</html>
 
